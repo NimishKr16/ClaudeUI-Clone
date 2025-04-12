@@ -32,7 +32,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [recentsOpen, setRecentsOpen] = useState(true);
   const [showLogout, setShowLogout] = useState(false);
-  const { logout } = useContext(AuthContext);
+   const { login, logout } = useContext(AuthContext);
 
   const toggleLogout = () => {
     setShowLogout((prev) => !prev);
@@ -144,15 +144,18 @@ const Sidebar = () => {
         </Box>
         {/* Bottom Section */}
         <Box>
+          
         <ListItem
         secondaryAction={
-          <IconButton edge="end" onClick={toggleLogout} sx={{ color: 'white' }}>
-            {showLogout ? <ExpandLess /> : <ExpandMore />}
-          </IconButton>
+          open && (
+            <IconButton edge="end" onClick={toggleLogout} sx={{ color: 'white' }}>
+              {showLogout ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+          )
         }
       >
             <ListItemIcon sx={{ color: "#7d7c78", minWidth: "40px" }}>
-              <Avatar sx={{ bgcolor: "black", width: 30, height: 30 }}>
+              <Avatar sx={{ bgcolor: "black", width: 30, height: 30, mr:5}}>
                 N
               </Avatar>
             </ListItemIcon>
@@ -172,6 +175,7 @@ const Sidebar = () => {
               />
             )}
           </ListItem>
+          
           <Collapse in={showLogout}>
         <Box sx={{ pl: 7, pb: 1 }}> {/* Indent the logout button */}
           <Button

@@ -25,7 +25,7 @@ function App() {
                 </>
               ) : (
                 // <Navigate to="/login" />
-                <h1>PLEASE LOGIN BRO</h1>
+                <LoginPage />
               )
             }
           />

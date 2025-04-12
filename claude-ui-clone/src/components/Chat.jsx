@@ -9,7 +9,6 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import ChatInput from "./ChatInput";
 import logo from "../assets/image.png";
 const Chat = () => {
@@ -23,27 +22,21 @@ const Chat = () => {
 
   const handleSend = () => {
     if (input.trim()) {
-      const newMessages = [...messages, { text: input, sender: "User" }];
-      setMessages(newMessages);
+      const userMessage = {
+        text: input,
+        sender: "User",
+      };
+      setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInput("");
 
-      // Simulate Claude's response
+      // Dummy Claude reply after user sends a message
       setTimeout(() => {
-        setMessages([
-          ...newMessages,
-          {
-            text: "This is a simulated response from Claude.",
-            sender: "Claude",
-          },
-        ]);
-      }, 1000);
-    }
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      handleSend();
+        const claudeReply = {
+          text: "This is a dummy API Call from Claude's Clone made by Nimish Kumar. I Hope you like it.",
+          sender: "Claude",
+        };
+        setMessages((prevMessages) => [...prevMessages, claudeReply]);
+      }, 1000); // 1 second delay to simulate API call
     }
   };
 
@@ -56,6 +49,7 @@ const Chat = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          bgcolor: "#262624"
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
