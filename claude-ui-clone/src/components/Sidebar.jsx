@@ -10,14 +10,19 @@ import {
   Avatar,
   Typography,
   Collapse,
+  IconButton,
+  Button,
 } from "@mui/material";
 import { LuPanelLeft } from "react-icons/lu";
 import { FaPlusCircle } from "react-icons/fa";
 import { PiChatsCircleBold } from "react-icons/pi";
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import {
   Settings as SettingsIcon,
   ExpandLess,
   ExpandMore,
+  PowerSettingsNew,
 } from "@mui/icons-material";
 
 const drawerWidth = 240;
@@ -26,6 +31,13 @@ const collapsedWidth = 60;
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [recentsOpen, setRecentsOpen] = useState(true);
+  const [showLogout, setShowLogout] = useState(false);
+  const { logout } = useContext(AuthContext);
+
+  const toggleLogout = () => {
+    setShowLogout((prev) => !prev);
+  };
+
 
   const handleToggle = () => {
     setOpen(!open);
@@ -122,7 +134,7 @@ const Sidebar = () => {
                     <ListItemText
                       primary="Made by Nimish Kumar"
                       primaryTypographyProps={{ fontSize: "14px" }}
-                      sx={{ color: "#7d7c78" }}
+                      sx={{ color: "#faf9f5" }}
                     />
                   </ListItem>
                 </List>
@@ -132,7 +144,13 @@ const Sidebar = () => {
         </Box>
         {/* Bottom Section */}
         <Box>
-          <ListItem>
+        <ListItem
+        secondaryAction={
+          <IconButton edge="end" onClick={toggleLogout} sx={{ color: 'white' }}>
+            {showLogout ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        }
+      >
             <ListItemIcon sx={{ color: "#7d7c78", minWidth: "40px" }}>
               <Avatar sx={{ bgcolor: "black", width: 30, height: 30 }}>
                 N
@@ -154,6 +172,19 @@ const Sidebar = () => {
               />
             )}
           </ListItem>
+          <Collapse in={showLogout}>
+        <Box sx={{ pl: 7, pb: 1 }}> {/* Indent the logout button */}
+          <Button
+            variant="outlined"
+            color="error"
+            size="small"
+            startIcon={<PowerSettingsNew />}
+            onClick={logout}
+          >
+            Logout
+          </Button>
+        </Box>
+      </Collapse>
         </Box>
       </Drawer>
     </Box>
